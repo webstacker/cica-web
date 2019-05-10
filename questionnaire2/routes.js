@@ -24,7 +24,7 @@ nunjucks.configure(
     }
 );
 
-function getPageHTML(transformation, sectionId, isNotFirst) {
+function getPageHTML(transformation, sectionId, isNotFirst, csrfToken) {
     const backLink = isNotFirst ? `/apply/previous/${sectionId}` : '/start-page';
     return nunjucks.renderString(
         `
@@ -33,35 +33,50 @@ function getPageHTML(transformation, sectionId, isNotFirst) {
                 {% from "back-link/macro.njk" import govukBackLink %}
                 {{ govukBackLink({
                     text: "Back",
-                    href: ${backLink}
+                    href: "${backLink}"
                 }) }}
+                
             {% endblock %}
             {% block innerContent %}
-                ${transformation}
+                <form method="post">
+                    ${transformation}
+                    <input type="hidden" id="csrf" name="_csrf" value="${csrfToken}" /></p>
+                </form>
             {% endblock %}
         `
     );
 }
 
-/* eslint-disable-next-line */
-function logProgress(req, questionnaire) {
-    console.log('\n\n\n-------------------');
-    console.log(req.method, ': ', req.url);
-    console.log(
-        'PROGRESS: ',
-        JSON.stringify(
-            {
-                answers: questionnaire.answers
-            },
-            null,
-            4
-        )
-    );
-    console.log('-------------------\n\n\n');
-}
+// /* eslint-disable no-console */
+// function logProgress(req, questionnaire) {
+//     console.log('\n\n\n-------------------');
+//     console.log(req.method, ': ', req.url);
+//     console.log(
+//         'PROGRESS: ',
+//         JSON.stringify(
+//             {
+//                 answers: questionnaire.answers
+//             },
+//             null,
+//             4
+//         )
+//     );
+//     console.log('-------------------\n\n\n');
+// }
+// /* eslint-enable no-console */
 
 function processRequest(reqBody) {
     const body = reqBody;
+
+    // the CSRF token in not in the schemas.
+    // we don't want to pass the CSRF token in to the
+    // validator because will always fail when being
+    // checked against a schema.
+    /* eslint-disable no-underscore-dangle */
+    if (body._csrf) {
+        delete body._csrf;
+    }
+    /* eslint-enable no-underscore-dangle */
 
     // Handle req.body
     Object.keys(body).forEach(property => {
@@ -145,7 +160,6 @@ router
     .route('/:section')
     .get((req, res) => {
         const section = getSection(req.params.section);
-
         if (section) {
             const sectionId = section.id;
             const questionnaire = section.context;
@@ -160,7 +174,8 @@ router
             const html = getPageHTML(
                 transformation,
                 removeSectionIdPrefix(sectionId),
-                questionnaire.progress[0] !== sectionId
+                questionnaire.progress[0] !== sectionId,
+                req.session.CSRFTOKEN
             );
 
             res.send(html);
@@ -181,7 +196,6 @@ router
             const currentSchema = questionnaire.sections[sectionId];
             // Ajv mutates the data it's testing when using the coerce option
             const errors = qValidator.validationResponseAgainstSchema(currentSchema, body);
-
             if (!errors.valid) {
                 const schema = questionnaire.sections[sectionId];
                 const transformation = qTransformer.transform({
@@ -194,7 +208,8 @@ router
                 const html = getPageHTML(
                     transformation,
                     removeSectionIdPrefix(sectionId),
-                    questionnaire.progress
+                    questionnaire.progress,
+                    req.session.CSRFTOKEN
                 );
 
                 // logProgress(questionnaire);
