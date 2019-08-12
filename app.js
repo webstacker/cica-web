@@ -65,6 +65,7 @@ app.use('/apply', async (req, res, next) => {
             );
             return res.redirect(`${req.baseUrl}/${initialSection}`);
         } catch (err) {
+            console.log({err});
             res.status(404).render('404.njk');
             next(err);
         }

@@ -22,16 +22,18 @@ router.route('/').get(async (req, res, next) => {
 
 router.route('/previous/:section').get(async (req, res, next) => {
     try {
-        const response = await qService.getPrevious(
-            req.cicaSession.questionnaireId,
-            req.params.section
-        );
-        const {sectionId} = response.body.data.attributes;
-        if (sectionId.startsWith('p-')) {
-            const prev = `${req.baseUrl}/${formHelper.removeSectionIdPrefix(sectionId)}`;
-            return res.redirect(prev);
+        const sectionId = formHelper.addPrefix(req.params.section);
+        const response = await qService.getPrevious(req.cicaSession.questionnaireId, sectionId);
+        const {previousSectionId} = response.body.data[0].attributes.sectionId;
+        if (response.body.links.prev) {
+            const overwriteId = response.body.links.prev;
+            if (overwriteId.startsWith('http')) {
+                return res.redirect(previousSectionId);
+            }
+            return res.redirect(`/${previousSectionId}`);
         }
-        return res.redirect(`/apply/${sectionId}`);
+        const prev = `${req.baseUrl}/${previousSectionId}`;
+        return res.redirect(prev);
     } catch (err) {
         res.status(err.statusCode || 404).render('404.njk');
         return next(err);
@@ -42,39 +44,36 @@ router
     .route('/:section')
     .get(async (req, res, next) => {
         try {
-            const sectionDetails = await qService.getSection(
-                req.cicaSession.questionnaireId,
-                req.params.section
-            );
-            const html = formHelper.getSectionHtml(sectionDetails);
+            const sectionId = formHelper.addPrefix(req.params.section);
+            const response = await qService.getSection(req.cicaSession.questionnaireId, sectionId);
+            const html = formHelper.getSectionHtml(response.body);
             res.send(html);
         } catch (err) {
+            console.log(err);
             res.status(err.statusCode || 404).render('404.njk');
             next(err);
         }
     })
     .post(async (req, res, next) => {
         try {
+            const sectionId = formHelper.addPrefix(req.params.section);
             const body = formHelper.processRequest(req.body, req.params.section);
             const response = await qService.postSection(
                 req.cicaSession.questionnaireId,
-                req.params.section,
+                sectionId,
                 body
             );
-            const responseBody = response.body;
-            const hasNextSection = responseBody.data[0].relationships.section.links.next;
-            const nextSectionInclude = responseBody.included.filter(
-                includes => includes.type === 'sections'
-            );
-            if (hasNextSection) {
-                const nextSectionId = nextSectionInclude[0].attributes.id;
-                const nextSection = formHelper.getNextSection(nextSectionId, req.query.next);
+            if (response.body.data) {
+                const progressEntry = await qService.getCurrentSection(
+                    req.cicaSession.questionnaireId
+                );
+                const nextSectionId = formHelper.removeSectionIdPrefix(
+                    progressEntry.body.data[0].attributes.sectionId
+                );
+                const nextSection = formHelper.getNextSection(nextSectionId, req.query.redirect);
                 res.redirect(`${req.baseUrl}/${nextSection}`);
             } else {
-                const errorsInclude = responseBody.included.filter(
-                    include => include.type === 'errors'
-                );
-                const html = formHelper.getSectionHtml(responseBody, body, errorsInclude);
+                const html = formHelper.getSectionHtmlWithErrors(response.body, body, sectionId);
                 res.send(html);
             }
         } catch (err) {

@@ -10,7 +10,7 @@ const createQuestionnaire = require('./test-fixtures/res/get_questionnaire.json'
 const createQuestionnaireInvalid = require('./test-fixtures/res/get_invalid_questionnaire.json');
 const getSectionValid = require('./test-fixtures/res/get_schema_valid');
 const getPreviousValid = require('./test-fixtures/res/get_previous_valid');
-const getPreviousNameValid = require('./test-fixtures/res/get_previous_name_valid');
+const getPreviousNameValid = require('./test-fixtures/res/get_previous_with_override');
 const postValidSubmission = require('./test-fixtures/res/post_valid_submission');
 const getSectionHtmlValid = require('./test-fixtures/transformations/resolved html/p-some-section');
 const getCurrentSection = require('./test-fixtures/res/get_current_section_valid');
@@ -125,24 +125,6 @@ describe('Data capture service endpoints', () => {
         });
         describe('/', () => {
             describe('GET', () => {
-                /* describe('302', () => {
-                    beforeAll(() => {
-                        jest.doMock('../questionnaire/questionnaire-service', () =>
-                            // return a modified factory function, that returns an object with a method, that returns a valid created response
-                            jest.fn(() => ({
-                                createQuestionnaire: () => createQuestionnaire
-                            }))
-                        );
-                        // eslint-disable-next-line global-require
-                        app = require('../app');
-                    });
-                    it('Should respond with a Found status', () => {
-                        agent = request.agent(app);
-                        return agent.get('/apply/').then(response => {
-                            expect(response.statusCode).toBe(302);
-                        });
-                    });
-                }); */
                 describe('302', () => {
                     beforeAll(() => {
                         jest.doMock('../questionnaire/questionnaire-service', () =>
@@ -219,37 +201,43 @@ describe('Data capture service endpoints', () => {
             describe('GET', () => {
                 describe('200', () => {
                     beforeAll(() => {
+                        const prefixedSection = 'p-applicant-enter-your-name';
+                        const initial = 'p-applicant-declaration';
                         jest.resetModules();
                         jest.doMock('../questionnaire/questionnaire-service', () =>
                             // return a modified factory function, that returns an object with a method, that returns a valid created response
                             jest.fn(() => ({
                                 getSection: () => getSectionValid,
-                                createQuestionnaire: () => createQuestionnaire
+                                createQuestionnaire: () => createQuestionnaire,
+                                getCurrentSection: () => getCurrentSection
                             }))
                         );
+                        jest.doMock('../questionnaire/form-helper', () => ({
+                            addPrefix: () => prefixedSection,
+                            getSectionHtml: () => getSectionHtmlValid,
+                            removeSectionIdPrefix: () => initial
+                        }));
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
                     it('Should respond with a success status', () => {
                         agent = request.agent(app);
-                        return agent.get('/apply/').then(() => {
-                            formHelper.getSectionHtml = jest.fn(() => getSectionHtmlValid);
-                            return agent
+                        return agent.get('/apply/').then(() =>
+                            agent
                                 .get('/apply/applicant-enter-your-name')
                                 .set(
                                     'Cookie',
-                                    'cicaSession=mzBCUTUQGsOT36H6Bvvy5w.D-Om63et1DE6qXBbDvSbsG9A-nw_jL29edAzRc74M7ELpS5am1meqsbNXr5eNhVjQip3H0dRWS9gyIua1h6SVxVPd8X-4BcV4K4RXwnzhEc.1565175346779.900000.4UB0eoITG2We5EDID3nrODqlVqqSzuV72tiJXuzreDg;'
+                                    'cicaSession=te3AFsfQozY49T4FIL8lEA.K2YvZ_eUm0YcCg2IA_qtCorcS2T17Td11LC0WmYuTaWc5PQuHcoCTHPuOPQoWVy_R5tUX4vzV4_pENOBxk1xPg0obdlP4suxaGK2YdqxjAE.1565864591496.900000.NwyQHlNP62CAiD-sk2GuuJvLzAQEZjX364hfnLp06yA;'
                                 )
                                 .then(response => {
                                     expect(response.statusCode).toBe(200);
-                                });
-                        });
+                                })
+                        );
                     });
                     it('Should respond with a valid page', () => {
                         agent = request.agent(app);
-                        return agent.get('/apply/').then(() => {
-                            formHelper.getSectionHtml = jest.fn(() => getSectionHtmlValid);
-                            return agent
+                        return agent.get('/apply').then(() =>
+                            agent
                                 .get('/apply/applicant-enter-your-name')
                                 .set(
                                     'Cookie',
@@ -259,26 +247,39 @@ describe('Data capture service endpoints', () => {
                                     expect(response.res.text).toContain(
                                         '<p>This is a valid page</p>'
                                     );
-                                });
-                        });
+                                })
+                        );
                     });
                 });
                 describe('404', () => {
                     beforeAll(() => {
+                        const prefixedSection = 'p-applicant-enter-your-name';
+                        const initial = 'p-applicant-declaration';
+                        jest.resetModules();
                         jest.doMock('../questionnaire/questionnaire-service', () =>
                             // return a modified factory function, that returns an object with a method, that returns a valid created response
                             jest.fn(() => ({
                                 getSection: () => getSectionValid,
-                                createQuestionnaire: () => createQuestionnaire
+                                createQuestionnaire: () => createQuestionnaire,
+                                getCurrentSection: () => getCurrentSection
                             }))
                         );
+                        jest.doMock('../questionnaire/form-helper', () => ({
+                            addPrefix: () => prefixedSection,
+                            getSectionHtml: () => {
+                                throw new Error();
+                            },
+                            removeSectionIdPrefix: () => initial
+                        }));
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
                     it('Should fail gracefully', async () => {
                         agent = request.agent(app);
                         return agent.get('/apply/').then(() => {
-                            formHelper.getSectionHtml = jest.fn(() => 404);
+                            formHelper.getSectionHtml = jest.fn(() => {
+                                throw new Error();
+                            });
                             return agent
                                 .get('/apply/applicant-enter-your-name')
                                 .set(
@@ -292,90 +293,30 @@ describe('Data capture service endpoints', () => {
                     });
                 });
             });
-            /* describe('POST', () => {
-                describe('200', () => {
-                    beforeAll(() => {
-                        jest.doMock('../questionnaire/questionnaire-service', () =>
-                            // return a modified factory function, that returns an object with a method, that returns a valid created response
-                            jest.fn(() => ({
-                                getSection: () => getSectionValid,
-                                createQuestionnaire: () => createQuestionnaire
-                            }))
-                        );
-                        // eslint-disable-next-line global-require
-                        app = require('../app');
-                    });
-                    it('Should respond with a success status', () => {
-                        agent = request.agent(app);
-                        return agent.get('/apply/').then(() => {
-                            formHelper.getSectionHtml = jest.fn(() => getSectionHtml);
-                            return agent
-                                .get('/apply/applicant-enter-your-name')
-                                .set(
-                                    'Cookie',
-                                    'cicaSession=mzBCUTUQGsOT36H6Bvvy5w.D-Om63et1DE6qXBbDvSbsG9A-nw_jL29edAzRc74M7ELpS5am1meqsbNXr5eNhVjQip3H0dRWS9gyIua1h6SVxVPd8X-4BcV4K4RXwnzhEc.1565175346779.900000.4UB0eoITG2We5EDID3nrODqlVqqSzuV72tiJXuzreDg;'
-                                )
-                                .then(response => {
-                                    expect(response.statusCode).toBe(200);
-                                });
-                        });
-                    });
-
-                    it('Should display the section to the user', async () => {
-                        const response = await request(app).get('/apply');
-                        expect(response.res.text).toBe(
-                            'Found. Redirecting to /apply/applicant-declaration'
-                        );
-                    });
-                });
-                describe('404', () => {
-                    beforeAll(() => {
-                        jest.resetModules();
-                        jest.doMock('../questionnaire/request-service', () =>
-                            // return a modified factory function, that returns an object with a method, that returns a valid created response
-                            jest.fn(() => ({
-                                post: () => createQuestionnaireInvalid
-                            }))
-                        );
-                        // eslint-disable-next-line global-require
-                        app = require('../app');
-                    });
-                    it('Should fail gracefully', async () => {
-                        const response = await request(app).get('/apply');
-                        expect(response.statusCode).toBe(404);
-                    });
-                    it('Should not set a cookie', async () => {
-                        const response = await request(app).get('/apply');
-                        let cookiePresent = false;
-                        const cookies = response.header['set-cookie'];
-                        if (cookies) {
-                            cookies.forEach(cookie => {
-                                cookiePresent = cookie.startsWith('cicaSession=')
-                                    ? true
-                                    : cookiePresent;
-                            });
-                        }
-                        expect(cookiePresent).toBe(false);
-                    });
-                });
-            }); */
         });
         describe('/apply/previous/:section', () => {
             describe('GET', () => {
                 describe('200', () => {
-                    describe('Given a section ID', () => {
+                    describe('Given a specified link', () => {
                         beforeAll(() => {
+                            const prefixedSection = 'p-applicant-enter-your-name';
+                            const initial = 'p-applicant-declaration';
                             jest.doMock('../questionnaire/questionnaire-service', () =>
                                 // return a modified factory function, that returns an object with a method, that returns a valid created response
                                 jest.fn(() => ({
                                     getPrevious: () => getPreviousValid,
-                                    createQuestionnaire: () => createQuestionnaire
+                                    createQuestionnaire: () => createQuestionnaire,
+                                    getCurrentSection: () => getCurrentSection
                                 }))
                             );
+                            jest.doMock('../questionnaire/form-helper', () => ({
+                                addPrefix: () => prefixedSection,
+                                removeSectionIdPrefix: () => initial
+                            }));
                             // eslint-disable-next-line global-require
                             app = require('../app');
                         });
-                        it('Should respond with a found status', () => {
+                        it('Should identify and render a static page', () => {
                             agent = request.agent(app);
                             return agent.get('/apply/').then(() => {
                                 formHelper.removeSectionIdPrefix = jest.fn(
@@ -392,7 +333,7 @@ describe('Data capture service endpoints', () => {
                                     });
                             });
                         });
-                        it('Should redirect the user', () => {
+                        it('Should identify and render an external URL', () => {
                             agent = request.agent(app);
                             return agent.get('/apply/').then(() => {
                                 formHelper.removeSectionIdPrefix = jest.fn(
