@@ -38,12 +38,10 @@ function questionnaireService() {
                 Authorization: `Bearer ${process.env.CW_DCS_JWT}`
             },
             body: {
-                data: [
-                    {
-                        type: 'answers',
-                        attributes: body
-                    }
-                ]
+                data: {
+                    type: 'answers',
+                    attributes: body
+                }
             }
         };
         return service.post(opts);
@@ -61,7 +59,7 @@ function questionnaireService() {
 
     function getCurrentSection(currentQuestionnaireId) {
         const opts = {
-            url: `${process.env.CW_DCS_URL}/questionnaires/${currentQuestionnaireId}}/progress-entries?filter[position]=current`,
+            url: `${process.env.CW_DCS_URL}/questionnaires/${currentQuestionnaireId}/progress-entries?filter[position]=current`,
             headers: {
                 Authorization: `Bearer ${process.env.CW_DCS_JWT}`
             }
@@ -86,14 +84,12 @@ function questionnaireService() {
                 Authorization: `Bearer ${process.env.CW_DCS_JWT}`
             },
             body: {
-                data: [
-                    {
-                        type: 'submissions',
-                        attributes: {
-                            questionnaireId
-                        }
+                data: {
+                    type: 'submissions',
+                    attributes: {
+                        questionnaireId
                     }
-                ]
+                }
             }
         };
         return service.post(opts);
