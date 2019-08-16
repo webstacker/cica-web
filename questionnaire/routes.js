@@ -31,6 +31,7 @@ router.route('/previous/:section').get(async (req, res, next) => {
     try {
         const sectionId = formHelper.addPrefix(req.params.section);
         const response = await qService.getPrevious(req.cicaSession.questionnaireId, sectionId);
+        console.log(response.body);
         const {previousSectionId} = response.body.data[0].attributes.sectionId;
         if (response.body.links.prev) {
             const overwriteId = response.body.links.prev;
@@ -56,7 +57,6 @@ router
             const html = formHelper.getSectionHtml(response.body);
             res.send(html);
         } catch (err) {
-            console.log(err);
             res.status(err.statusCode || 404).render('404.njk');
             next(err);
         }

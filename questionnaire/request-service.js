@@ -12,7 +12,8 @@ function requestService() {
                 'Content-Type': 'application/vnd.api+json'
             },
             json: true,
-            body: options.body
+            body: options.body,
+            throwHttpErrors: false
         };
         opts = merge(opts, options);
         console.log(
@@ -32,7 +33,8 @@ function requestService() {
                 accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            json: true
+            json: true,
+            throwHttpErrors: false
         };
         opts = merge(opts, options);
         const {query} = opts || {};
