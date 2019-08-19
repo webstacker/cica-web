@@ -16,13 +16,6 @@ function requestService() {
             throwHttpErrors: false
         };
         opts = merge(opts, options);
-        console.log(
-            `11111111111111111111111111111111111111 OUTGOING REQUEST: ${JSON.stringify(
-                opts,
-                null,
-                4
-            )}`
-        );
         return got(options.url, opts);
     }
 
@@ -38,13 +31,6 @@ function requestService() {
         };
         opts = merge(opts, options);
         const {query} = opts || {};
-        console.log(
-            `11111111111111111111111111111111111111 OUTGOING REQUEST: ${JSON.stringify(
-                opts,
-                null,
-                4
-            )}`
-        );
         return got(opts.url, opts, {query});
     }
 

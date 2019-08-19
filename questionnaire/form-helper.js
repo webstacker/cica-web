@@ -20,14 +20,14 @@ nunjucks.configure(
     }
 );
 
-function renderSection(
+function renderSection({
     transformation,
     isFinal,
     backTarget,
     isSummary,
-    variables = {},
-    showBackLink = true
-) {
+    showBackLink = true,
+    csrfToken
+}) {
     const buttonTitle = isSummary ? 'Agree and Submit' : 'Continue';
     const showButton = !isFinal;
     return nunjucks.renderString(
@@ -51,10 +51,10 @@ function renderSection(
                             text: "${buttonTitle}"
                         }) }}
                     {% endif %}
+                    <input type="hidden" name="_csrf" value="${csrfToken}">
                 </form>
             {% endblock %}
-        `,
-        variables
+        `
     );
 }
 
@@ -159,7 +159,7 @@ function processPreviousAnswers(answersObject) {
     return answers;
 }
 
-function getSectionHtml(sectionData) {
+function getSectionHtml(sectionData, csrfToken) {
     const {sectionId} = sectionData.data[0].attributes;
     const schema = sectionData.included.filter(section => section.type === 'sections')[0]
         .attributes;
@@ -174,7 +174,14 @@ function getSectionHtml(sectionData) {
         uiSchema,
         data: answers
     });
-    return renderSection(transformation, display.final, backLink, summary);
+
+    return renderSection({
+        transformation,
+        isFinal: display.final,
+        backTarget: backLink,
+        isSummary: summary,
+        csrfToken
+    });
 }
 
 function processErrors(errors) {
@@ -188,7 +195,7 @@ function processErrors(errors) {
     return errorObject;
 }
 
-function getSectionHtmlWithErrors(sectionData, body = {}, sectionId) {
+function getSectionHtmlWithErrors(sectionData, body = {}, sectionId, csrfToken) {
     const {schema} = sectionData.meta;
     const errorObject = processErrors(sectionData.errors);
     const display = {final: false}; // sectionData.meta; // ToDo: Add these to meta for POST answers
@@ -201,7 +208,14 @@ function getSectionHtmlWithErrors(sectionData, body = {}, sectionId) {
         data: body,
         schemaErrors: errorObject
     });
-    return renderSection(transformation, display.final, backLink, summary);
+
+    return renderSection({
+        transformation,
+        isFinal: display.final,
+        backTarget: backLink,
+        isSummary: summary,
+        csrfToken
+    });
 }
 
 function getNextSection(nextSectionId, requestedNextSectionId = undefined) {

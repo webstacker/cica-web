@@ -9,13 +9,6 @@ const router = express.Router();
 router.route('/').get(async (req, res, next) => {
     try {
         const response = await qService.getCurrentSection(req.cicaSession.questionnaireId);
-        console.log(
-            `22222222222222222222222222222222222222222 RESPONSE GOES HERE: ${JSON.stringify(
-                response,
-                null,
-                4
-            )}`
-        );
         const responseBody = response.body;
         const initialSection = formHelper.removeSectionIdPrefix(
             responseBody.data[0].attributes.sectionId
@@ -31,7 +24,6 @@ router.route('/previous/:section').get(async (req, res, next) => {
     try {
         const sectionId = formHelper.addPrefix(req.params.section);
         const response = await qService.getPrevious(req.cicaSession.questionnaireId, sectionId);
-        console.log(response.body);
         const {previousSectionId} = response.body.data[0].attributes.sectionId;
         if (response.body.links.prev) {
             const overwriteId = response.body.links.prev;
@@ -54,7 +46,7 @@ router
         try {
             const sectionId = formHelper.addPrefix(req.params.section);
             const response = await qService.getSection(req.cicaSession.questionnaireId, sectionId);
-            const html = formHelper.getSectionHtml(response.body);
+            const html = formHelper.getSectionHtml(response.body, req.csrfToken());
             res.send(html);
         } catch (err) {
             res.status(err.statusCode || 404).render('404.njk');
@@ -65,10 +57,17 @@ router
         try {
             const sectionId = formHelper.addPrefix(req.params.section);
             const body = formHelper.processRequest(req.body, req.params.section);
+            // cache the token for posting to the DCS.
+            // eslint-disable-next-line no-underscore-dangle
+            const csrf = body._csrf;
+            // delete the token from the body to allow AJV to validate the request.
+            // eslint-disable-next-line no-underscore-dangle
+            delete body._csrf;
             const response = await qService.postSection(
                 req.cicaSession.questionnaireId,
                 sectionId,
-                body
+                body,
+                csrf
             );
             if (response.body.data) {
                 const progressEntry = await qService.getCurrentSection(
@@ -80,7 +79,12 @@ router
                 const nextSection = formHelper.getNextSection(nextSectionId, req.query.redirect);
                 res.redirect(`${req.baseUrl}/${nextSection}`);
             } else {
-                const html = formHelper.getSectionHtmlWithErrors(response.body, body, sectionId);
+                const html = formHelper.getSectionHtmlWithErrors(
+                    response.body,
+                    body,
+                    sectionId,
+                    req.csrfToken()
+                );
                 res.send(html);
             }
         } catch (err) {
@@ -91,7 +95,7 @@ router
 
 router.route('/submission/confirm').post(async (req, res, next) => {
     try {
-        await qService.postSubmission(req.cicaSession.questionnaireId);
+        await qService.postSubmission(req.cicaSession.questionnaireId, req.cicaSession.csrfSecret);
         const response = await qService.getSubmissionStatus(
             req.cicaSession.questionnaireId,
             Date.now()
