@@ -114,7 +114,7 @@ function questionnaireService() {
         const {submitted} = result.body.data.attributes;
 
         if (submitted) {
-            return {submitted: true};
+            return result.body.data.attributes;
         }
 
         // check again.
@@ -130,6 +130,7 @@ function questionnaireService() {
         getCurrentSection,
         getSubmission,
         postSubmission,
+        timeout,
         getSubmissionStatus
     });
 }

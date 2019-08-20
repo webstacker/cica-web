@@ -16,7 +16,7 @@ function requestService() {
             throwHttpErrors: false
         };
         opts = merge(opts, options);
-        return got(options.url, opts);
+        return got(opts.url, opts);
     }
 
     function get(options) {
@@ -30,8 +30,7 @@ function requestService() {
             throwHttpErrors: false
         };
         opts = merge(opts, options);
-        const {query} = opts || {};
-        return got(opts.url, opts, {query});
+        return got(opts.url, opts);
     }
 
     return Object.freeze({

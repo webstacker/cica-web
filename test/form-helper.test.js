@@ -316,7 +316,7 @@ describe('form-helper functions', () => {
             };
             const expected = {
                 'q-applicant-name-title': 'Enter your title',
-                'q-applicant-enter-your-firstname': 'Enter your name'
+                'q-applicant-enter-your-firstname': 'Enter your forename'
             };
             const actual = formHelper.processErrors(error.errors);
 

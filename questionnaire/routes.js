@@ -24,16 +24,14 @@ router.route('/previous/:section').get(async (req, res, next) => {
     try {
         const sectionId = formHelper.addPrefix(req.params.section);
         const response = await qService.getPrevious(req.cicaSession.questionnaireId, sectionId);
-        const {previousSectionId} = response.body.data[0].attributes.sectionId;
-        if (response.body.links.prev) {
-            const overwriteId = response.body.links.prev;
-            if (overwriteId.startsWith('http')) {
-                return res.redirect(previousSectionId);
-            }
-            return res.redirect(`/${previousSectionId}`);
+        if (response.body.data[0].attributes && response.body.data[0].attributes.url !== null) {
+            const overwriteId = response.body.data[0].attributes.url;
+            return res.redirect(overwriteId);
         }
-        const prev = `${req.baseUrl}/${previousSectionId}`;
-        return res.redirect(prev);
+        const previousSectionId = formHelper.removeSectionIdPrefix(
+            response.body.data[0].attributes.sectionId
+        );
+        return res.redirect(`${req.baseUrl}/${previousSectionId}`);
     } catch (err) {
         res.status(err.statusCode || 404).render('404.njk');
         return next(err);
@@ -100,7 +98,7 @@ router.route('/submission/confirm').post(async (req, res, next) => {
             req.cicaSession.questionnaireId,
             Date.now()
         );
-        if (response.submitted) {
+        if (response.status !== 'FAILED') {
             return res.redirect('/apply/confirmation');
         }
         const err = Error(`The service is currently unavailable`);
@@ -110,7 +108,7 @@ router.route('/submission/confirm').post(async (req, res, next) => {
         res.status(err.statusCode).render('503.njk');
         return next(err);
     } catch (err) {
-        res.status(err.statusCode || 404).render('404.njk');
+        res.status(err.statusCode || 404).render('503.njk');
         return next(err);
     }
 });
