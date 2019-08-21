@@ -28,10 +28,14 @@ function renderSection({
     showBackLink = true,
     csrfToken
 }) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@6666666666666666666666666666666666@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@6666666666666666666666666666666666@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     const buttonTitle = isSummary ? 'Agree and Submit' : 'Continue';
     const showButton = !isFinal;
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@77777777777777777777777777777@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@77777777777777777777777777777@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     return nunjucks.renderString(
         `
             {% extends "page.njk" %}
@@ -164,7 +168,9 @@ function processPreviousAnswers(answersObject) {
 }
 
 function getSectionHtml(sectionData, csrfToken) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@88888888888888888888888888888888@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@88888888888888888888888888888888@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     const {sectionId} = sectionData.data[0].attributes;
     const schema = sectionData.included.filter(section => section.type === 'sections')[0]
         .attributes;
@@ -180,7 +186,9 @@ function getSectionHtml(sectionData, csrfToken) {
         data: answers
     });
 
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@999999999999999999999999999999@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@999999999999999999999999999999@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     return renderSection({
         transformation,
         isFinal: display.final,
@@ -212,7 +220,9 @@ function processErrors(errors) {
 }
 
 function getSectionHtmlWithErrors(sectionData, body = {}, sectionId, csrfToken) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@10101010101010101001010101010@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@10101010101010101001010101010@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     const {schema} = sectionData.meta;
     const errorObject = processErrors(sectionData.errors);
     const display = {final: false}; // sectionData.meta; // ToDo: Add these to meta for POST answers
@@ -226,7 +236,9 @@ function getSectionHtmlWithErrors(sectionData, body = {}, sectionId, csrfToken) 
         schemaErrors: errorObject
     });
 
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@12121212121212121212121212@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    console.log(
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@12121212121212121212121212@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    );
     return renderSection({
         transformation,
         isFinal: display.final,

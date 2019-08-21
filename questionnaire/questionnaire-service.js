@@ -4,7 +4,11 @@ const service = require('./request-service')();
 
 function questionnaireService() {
     function createQuestionnaire(csrfToken) {
-        console.log(csrfToken, process.env.CW_DCS_URL, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@13131313131313131313131313131313@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log(
+            csrfToken,
+            process.env.CW_DCS_URL,
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@13131313131313131313131313131313@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+        );
         const opts = {
             url: `${process.env.CW_DCS_URL}/questionnaires`,
             headers: {
@@ -34,7 +38,9 @@ function questionnaireService() {
     }
 
     function postSection(questionnaireId, section, body, csrfToken) {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@1414141414141414141414@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log(
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@1414141414141414141414@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+        );
         const opts = {
             url: `${process.env.CW_DCS_URL}/questionnaires/${questionnaireId}/sections/${section}/answers`,
             headers: {
@@ -82,7 +88,9 @@ function questionnaireService() {
     }
 
     function postSubmission(questionnaireId, csrfToken) {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@151515151515151515151515@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        console.log(
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@151515151515151515151515@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+        );
         const opts = {
             url: `${process.env.CW_DCS_URL}/questionnaires/${questionnaireId}/submissions`,
             headers: {
