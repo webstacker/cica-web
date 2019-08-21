@@ -134,11 +134,15 @@ describe('Data capture service endpoints', () => {
                         jest.doMock('../questionnaire/questionnaire-service', () =>
                             // return a modified factory function, that returns an object with a method, that returns a valid created response
                             jest.fn(() => ({
+                                // getSection: () => getSectionValid,
                                 createQuestionnaire: () => createQuestionnaire,
                                 getCurrentSection: () => getCurrentSection
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -192,7 +196,10 @@ describe('Data capture service endpoints', () => {
                                 }
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                         agent = request.agent(app);
@@ -249,7 +256,10 @@ describe('Data capture service endpoints', () => {
                             getSectionHtml: () => getSectionHtmlValid,
                             removeSectionIdPrefix: () => initial
                         }));
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -304,7 +314,10 @@ describe('Data capture service endpoints', () => {
                             },
                             removeSectionIdPrefix: () => initial
                         }));
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -350,7 +363,10 @@ describe('Data capture service endpoints', () => {
                                 processRequest: () => processedAnswer,
                                 getNextSection: () => section
                             }));
-                            jest.doMock('../middleware/csrf/index', () => express());
+                            jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                                req.csrfToken = () => '1234567890';
+                                next();
+                            });
                             // eslint-disable-next-line global-require
                             app = require('../app');
                         });
@@ -409,7 +425,10 @@ describe('Data capture service endpoints', () => {
                                 processRequest: () => processedAnswer,
                                 getNextSection: () => section
                             }));
-                            jest.doMock('../middleware/csrf/index', () => express());
+                            jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                                req.csrfToken = () => '1234567890';
+                                next();
+                            });
                             // eslint-disable-next-line global-require
                             app = require('../app');
                         });
@@ -454,7 +473,10 @@ describe('Data capture service endpoints', () => {
                             processRequest: () => processedAnswer,
                             getNextSection: () => section
                         }));
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -497,7 +519,10 @@ describe('Data capture service endpoints', () => {
                                 addPrefix: () => prefixedSection,
                                 removeSectionIdPrefix: () => Section
                             }));
-                            jest.doMock('../middleware/csrf/index', () => express());
+                            jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                                req.csrfToken = () => '1234567890';
+                                next();
+                            });
                             // eslint-disable-next-line global-require
                             app = require('../app');
                         });
@@ -547,7 +572,10 @@ describe('Data capture service endpoints', () => {
                                 addPrefix: () => prefixedSection,
                                 removeSectionIdPrefix: () => Section
                             }));
-                            jest.doMock('../middleware/csrf/index', () => express());
+                            jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                                req.csrfToken = () => '1234567890';
+                                next();
+                            });
                             // eslint-disable-next-line global-require
                             app = require('../app');
                         });
@@ -599,7 +627,10 @@ describe('Data capture service endpoints', () => {
                                 }
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                         agent = request.agent(app);
@@ -629,7 +660,10 @@ describe('Data capture service endpoints', () => {
                                 }
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                         agent = request.agent(app);
@@ -664,7 +698,10 @@ describe('Data capture service endpoints', () => {
                                 createQuestionnaire: () => createQuestionnaire
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -710,7 +747,10 @@ describe('Data capture service endpoints', () => {
                                 createQuestionnaire: () => createQuestionnaire
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -740,7 +780,10 @@ describe('Data capture service endpoints', () => {
                                 createQuestionnaire: () => createQuestionnaire
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
@@ -778,7 +821,10 @@ describe('Data capture service endpoints', () => {
                                 createQuestionnaire: () => createQuestionnaire
                             }))
                         );
-                        jest.doMock('../middleware/csrf/index', () => express());
+                        jest.doMock('../middleware/csrf/index', (req, res, next) => {
+                            req.csrfToken = () => '1234567890';
+                            next();
+                        });
                         // eslint-disable-next-line global-require
                         app = require('../app');
                     });
