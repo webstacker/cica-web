@@ -2,9 +2,6 @@
 
 const express = require('express');
 
-console.log(
-    '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@111111111111111111111111@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-);
 const csrf = require('csurf');
 
 const csrfProtection = csrf({
@@ -14,9 +11,6 @@ const csrfProtection = csrf({
 
 const app = express();
 
-console.log(
-    '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@222222222222222222222222222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-);
 app.use(csrfProtection);
 
 // // error handler

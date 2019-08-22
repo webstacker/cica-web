@@ -44,15 +44,9 @@ router
         try {
             const sectionId = formHelper.addPrefix(req.params.section);
             const response = await qService.getSection(req.cicaSession.questionnaireId, sectionId);
-            console.log(
-                '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@16161616161616161616161616@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-            );
             const html = formHelper.getSectionHtml(response.body, req.csrfToken());
             res.send(html);
         } catch (err) {
-            console.log(
-                'FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU'
-            );
             console.log(err);
             res.status(err.statusCode || 404).render('404.njk');
             next(err);
@@ -64,19 +58,10 @@ router
             const body = formHelper.processRequest(req.body, req.params.section);
             // cache the token for posting to the DCS.
             // eslint-disable-next-line no-underscore-dangle
-            console.log(
-                '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@17171717171717171717171717@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-            );
             const csrf = body._csrf;
             // delete the token from the body to allow AJV to validate the request.
             // eslint-disable-next-line no-underscore-dangle
-            console.log(
-                '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@1818181818181818181818181818@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-            );
             delete body._csrf;
-            console.log(
-                '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@1919191919191919191919191919@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-            );
             const response = await qService.postSection(
                 req.cicaSession.questionnaireId,
                 sectionId,
@@ -93,9 +78,6 @@ router
                 const nextSection = formHelper.getNextSection(nextSectionId, req.query.redirect);
                 res.redirect(`${req.baseUrl}/${nextSection}`);
             } else {
-                console.log(
-                    '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@20202020202020202020202020@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-                );
                 const html = formHelper.getSectionHtmlWithErrors(
                     response.body,
                     body,
@@ -105,6 +87,7 @@ router
                 res.send(html);
             }
         } catch (err) {
+            console.log(err);
             res.status(err.statusCode || 404).render('404.njk');
             next(err);
         }
@@ -112,9 +95,6 @@ router
 
 router.route('/submission/confirm').post(async (req, res, next) => {
     try {
-        console.log(
-            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2121212121212121212121212121212121@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-        );
         await qService.postSubmission(req.cicaSession.questionnaireId, req.cicaSession.csrfSecret);
         const response = await qService.getSubmissionStatus(
             req.cicaSession.questionnaireId,
