@@ -159,36 +159,49 @@ describe('Questionnaire service', () => {
 
             expect(expected).toEqual(response);
         });
-        /*  it('Returns continues to check for 15 seconds', async () => {
-            jest.useFakeTimers();
+        it('Returns continues to check for 15 seconds', async () => {
+            jest.useRealTimers();
             jest.doMock('../questionnaire/request-service', () =>
                 jest.fn(() => ({
-                    get: () => getValidSubmission
+                    get: () => ({
+                        body: {
+                            data: {
+                                type: 'submissions',
+                                attributes: {
+                                    questionnaireId: '2c3c6ecd-aa68-4a00-8093-300cae6cbfcb',
+                                    submitted: false,
+                                    status: 'NOT_STARTED',
+                                    caseReferenceNumber: null
+                                }
+                            }
+                        }
+                    })
                 }))
             );
+
             jest.resetModules();
+
             // eslint-disable-next-line global-require
             const questionnaireService = require('../questionnaire/questionnaire-service')();
-            await questionnaireService.getSubmissionStatus(
-                'questionnaire-id',
-                Date.now()
-            );
-
-            expect(setTimeout).toHaveBeenCalledTimes(15);
+            // eslint-disable-next-line global-require
+            const req = require('../questionnaire/request-service')();
+            console.log(req);
+            const mySpy = jest.spyOn(req, 'get');
+            await expect(
+                questionnaireService.getSubmissionStatus('questionnaire-id', Date.now())
+            ).rejects.toEqual(new Error('Unable to retrieve questionnaire submission status'));
+            expect(mySpy).toHaveBeenCalledTimes(15);
         });
         it('Should return a 504 error if it is called with a time older than 15 seconds ago.', async () => {
+            jest.dontMock('../questionnaire/request-service');
             jest.resetModules();
             // eslint-disable-next-line global-require
             const questionnaireService = require('../questionnaire/questionnaire-service')();
-            const response = await questionnaireService.getSubmissionStatus(
-                'questionnaire-id',
-                Date.now() - 16000
-            );
-
-            expect(response).toThrow('The upstream server took too long to respond');
-        }); */
+            await expect(
+                questionnaireService.getSubmissionStatus('questionnaire-id', Date.now() - 16000)
+            ).rejects.toEqual(new Error('Unable to retrieve questionnaire submission status'));
+        });
     });
-
     describe('getFirstSection', () => {
         it('Should get the first section', async () => {
             jest.doMock('../questionnaire/request-service', () =>
@@ -202,6 +215,22 @@ describe('Questionnaire service', () => {
             const response = await questionnaireService.getFirstSection('questionnaire-id');
 
             expect(response).toEqual(getValidSection);
+        });
+    });
+    describe('getAnswers', () => {
+        it('Should get all answers given a questionnaireID', async () => {
+            const answers = {body: [{'q-question-id': 'answer'}]};
+            jest.doMock('../questionnaire/request-service', () =>
+                jest.fn(() => ({
+                    get: () => answers
+                }))
+            );
+            jest.resetModules();
+            // eslint-disable-next-line global-require
+            const questionnaireService = require('../questionnaire/questionnaire-service')();
+            const response = await questionnaireService.getAnswers('questionnaire-id');
+
+            expect(response).toEqual({body: [{'q-question-id': 'answer'}]});
         });
     });
 });

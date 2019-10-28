@@ -100,22 +100,26 @@ function questionnaireService() {
     }
 
     async function getSubmissionStatus(questionnaireId, startingDate) {
-        if (Date.now() - startingDate >= 15000) {
-            const err = Error(`Unable to retrieve questionnaire submission status`);
-            err.name = 'HTTPError';
-            err.statusCode = 500;
-            err.error = '500 Internal Server Error';
+        try {
+            if (Date.now() - startingDate >= 15000) {
+                const err = Error(`Unable to retrieve questionnaire submission status`);
+                err.name = 'HTTPError';
+                err.statusCode = 500;
+                err.error = '500 Internal Server Error';
+                throw err;
+            }
+            const result = await getSubmission(questionnaireId);
+            console.log(JSON.stringify(result, null, 4));
+            const {submitted} = result.body.data.attributes;
+            if (submitted) {
+                return result.body.data.attributes;
+            }
+            // check again.
+            await timeout(1000);
+            return getSubmissionStatus(questionnaireId, startingDate);
+        } catch (err) {
             throw err;
         }
-        const result = await getSubmission(questionnaireId);
-        const {submitted} = result.body.data.attributes;
-        if (submitted) {
-            return result.body.data.attributes;
-        }
-
-        // check again.
-        await timeout(1000);
-        return getSubmissionStatus(questionnaireId, startingDate);
     }
 
     function getAnswers(questionnaireId) {
