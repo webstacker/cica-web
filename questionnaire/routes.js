@@ -51,7 +51,13 @@ router
             ) {
                 answers = await qService.getAnswers(req.cicaSession.questionnaireId);
             }
-            const html = formHelper.getSectionHtml(response.body, answers, req.csrfToken());
+
+            const html = formHelper.getSectionHtml(
+                response.body,
+                answers,
+                req.csrfToken(),
+                res.locals.nonce
+            );
             res.send(html);
         } catch (err) {
             res.status(err.statusCode || 404).render('404.njk');
@@ -99,7 +105,8 @@ router
             const html = formHelper.getSectionHtmlWithErrors(
                 response.body,
                 sectionId,
-                req.csrfToken()
+                req.csrfToken(),
+                res.locals.nonce
             );
             return res.send(html);
         } catch (err) {
