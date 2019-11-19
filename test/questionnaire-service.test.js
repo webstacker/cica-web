@@ -159,16 +159,12 @@ describe('Questionnaire service', () => {
 
             expect(expected).toEqual(response);
         });
-        it('Returns continues to check for 15 seconds', async () => {
+        it.only('Returns continues to check for 15 seconds', async () => {
             jest.useRealTimers();
             jest.resetModules();
-            jest.mock('../questionnaire/request-service');
-            jest.dontMock('../questionnaire/questionnaire-service');
-            // eslint-disable-next-line global-require
-            const req = require('../questionnaire/request-service');
-
-            req.mockImplementation(() => ({
-                get: () => ({
+            jest.doMock('../questionnaire/request-service', () => {
+                // all instances get the same mock
+                const get = jest.fn(() => ({
                     body: {
                         data: {
                             type: 'submissions',
@@ -180,8 +176,15 @@ describe('Questionnaire service', () => {
                             }
                         }
                     }
-                })
-            }));
+                }));
+
+                return () => ({
+                    get
+                });
+            });
+
+            // eslint-disable-next-line global-require
+            const req = require('../questionnaire/request-service')();
 
             // eslint-disable-next-line global-require
             const questionnaireService = require('../questionnaire/questionnaire-service')();
@@ -189,47 +192,8 @@ describe('Questionnaire service', () => {
             await expect(
                 questionnaireService.getSubmissionStatus('questionnaire-id', Date.now())
             ).rejects.toEqual(new Error('Unable to retrieve questionnaire submission status'));
-            expect(req).toHaveBeenCalledTimes(15);
 
-            /* jest.useRealTimers();
-            jest.resetModules();
-            jest.mock('got');
-            jest.mock('lodash.merge');
-            jest.dontMock('../questionnaire/request-service');
-            const got = require('got');
-            const merge = require('lodash.merge');
-            const mergeResponse = {
-                url: 'http://www.google.com/',
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                json: true,
-                throwHttpErrors: false
-            };
-            got.mockImplementation(() => ({
-                body: {
-                    data: {
-                        type: 'submissions',
-                        attributes: {
-                            questionnaireId: '2c3c6ecd-aa68-4a00-8093-300cae6cbfcb',
-                            submitted: false,
-                            status: 'NOT_STARTED',
-                            caseReferenceNumber: null
-                        }
-                    }
-                }
-            }));
-            merge.mockImplementation(() => mergeResponse);
-
-            // eslint-disable-next-line global-require
-            const questionnaireService = require('../questionnaire/questionnaire-service')();
-
-            await expect(
-                questionnaireService.getSubmissionStatus('questionnaire-id', Date.now())
-            ).rejects.toEqual(new Error('Unable to retrieve questionnaire submission status'));
-            expect(got).toHaveBeenCalledTimes(15); */
+            expect(req.get).toHaveBeenCalledTimes(15);
         });
         it('Should return a 504 error if it is called with a time older than 15 seconds ago.', async () => {
             jest.dontMock('../questionnaire/request-service');

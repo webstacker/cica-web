@@ -109,7 +109,6 @@ function questionnaireService() {
                 throw err;
             }
             const result = await getSubmission(questionnaireId);
-            console.log(JSON.stringify(result, null, 4));
             const {submitted} = result.body.data.attributes;
             if (submitted) {
                 return result.body.data.attributes;
