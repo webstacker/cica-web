@@ -93,7 +93,7 @@ function createCicaGa() {
     function setUpGAEventTracking() {
         const trackableElements = document.querySelectorAll('[data-module], .ga-event');
         // GOVUK modules, and custom events tracking.
-        polyfills.forEach(trackableElements, (index, element) => {
+        polyfills.forEach(trackableElements, element => {
             if (polyfills.hasClass(element, 'ga-event--scrollto')) {
                 scrollToElementHandler(element);
                 return;

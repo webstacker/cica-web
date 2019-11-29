@@ -187,7 +187,7 @@ function createCicaGa() {
   function setUpGAEventTracking() {
     var trackableElements = document.querySelectorAll('[data-module], .ga-event'); // GOVUK modules, and custom events tracking.
 
-    polyfills.forEach(trackableElements, function (index, element) {
+    polyfills.forEach(trackableElements, function (element) {
       if (polyfills.hasClass(element, 'ga-event--scrollto')) {
         scrollToElementHandler(element);
         return;
@@ -225,7 +225,7 @@ function createPolyfills() {
   // for legacy versions of IE.
   function forEach(array, callback, scope) {
     for (var i = 0; i < array.length; i += 1) {
-      callback.call(scope, i, array[i]);
+      callback.call(scope, array[i], i);
     }
   } // old IE support.
 
