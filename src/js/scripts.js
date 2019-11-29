@@ -1,1 +1,6 @@
-// code goes here.
+import {createCicaGa} from './ga';
+
+(() => {
+    const ga = createCicaGa();
+    ga.setUpGAEventTracking();
+})();
