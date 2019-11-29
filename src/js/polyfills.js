@@ -34,6 +34,7 @@ function createPolyfills() {
                 const to = Object(target);
 
                 for (let index = 1; index < arguments.length; index += 1) {
+                    // eslint-disable-next-line prefer-rest-params
                     const nextSource = arguments[index];
 
                     if (nextSource != null) {
