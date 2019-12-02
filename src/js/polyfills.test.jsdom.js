@@ -2,7 +2,6 @@ import {createPolyfills} from './polyfills';
 
 describe('polyfills', () => {
     const polyfills = createPolyfills();
-
     document.body.innerHTML = `
         <span id="my-span" class="some-class class-foo">This is my span element</span>
     `;
