@@ -1,8 +1,8 @@
 const config = {
     parserOptions: {
-        sourceType: "module",
+        sourceType: "scripts",
         ecmaFeatures: {
-            modules: true
+            modules: false
         }
     },
     globals: {
