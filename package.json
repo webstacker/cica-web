@@ -6,7 +6,9 @@
         "start:dev": "nodemon -L --inspect=0.0.0.0:9229 -e .js,.json,.njk --ignore public/dist/* --exec node ./bin/www",
         "start": "node ./bin/www",
         "sass": "node-sass src/sass/all.scss public/stylesheets/all.css && node-sass src/sass/all-ie8.scss public/stylesheets/all-ie8.css",
-        "test": "jest",
+        "test": "npm run test:node && npm run test:dom",
+        "test:node": "jest --config=jest.config.js",
+        "test:dom": "jest --config=jest.config.jsdom.js",
         "coverage": "jest --coverage",
         "build:dev": "webpack --mode development",
         "build": "webpack --mode production",
@@ -15,6 +17,7 @@
     "dependencies": {
         "@babel/core": "^7.7.4",
         "@babel/preset-env": "^7.7.4",
+        "accessible-autocomplete": "^2.0.1",
         "babel-loader": "^8.0.6",
         "client-sessions": "github:CriminalInjuriesCompensationAuthority/node-client-sessions#v0.9.0",
         "cookie-parser": "~1.4.3",

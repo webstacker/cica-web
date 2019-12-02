@@ -194,7 +194,6 @@ function escapeSchemaContent(schema) {
 }
 
 function getSectionHtml(sectionData, allAnswers, csrfToken) {
-    console.log(JSON.stringify(sectionData.data, null, 4));
     const {sectionId} = sectionData.data[0].attributes;
     const display = sectionData.meta;
     const schema = sectionData.included.filter(section => section.type === 'sections')[0]
