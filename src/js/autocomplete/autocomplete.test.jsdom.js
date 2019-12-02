@@ -22,7 +22,6 @@ describe('autoComplete', () => {
 
     describe('htmlCollectionToArray', () => {
         it('Should transform an array-like collection of HTMLElements into an array', () => {
-            // eslint-disable-next-line no-undef
             document.body.innerHTML = `<label for="dropdown-menu">Dropdown</label>
                 <select id="dropdown-menu" class="govuk-dropdown">
                     <option value="1">Item 1</option>
@@ -31,7 +30,6 @@ describe('autoComplete', () => {
                     <option value="4">Item 4</option>
                     <option value="5">Item 5</option>
                 </select>`;
-            // eslint-disable-next-line no-undef
             const selectElement = document.querySelector('#dropdown-menu');
 
             const actual = autoComplete.htmlCollectionToArray(selectElement);
@@ -43,7 +41,6 @@ describe('autoComplete', () => {
 
     describe('formatResults', () => {
         it('Should transform an array of option elements to an array of result objects', () => {
-            // eslint-disable-next-line no-undef
             document.body.innerHTML = `<label for="dropdown-menu">Dropdown</label>
                 <select id="dropdown-menu" class="govuk-dropdown">
                     <option value="101">Item 1</option>
@@ -52,7 +49,7 @@ describe('autoComplete', () => {
                     <option value="104">Item 4</option>
                     <option value="105">Item 5</option>
                 </select>`;
-            // eslint-disable-next-line no-undef
+
             const selectElement = document.querySelector('#dropdown-menu');
             const resultArray = autoComplete.htmlCollectionToArray(selectElement);
 
