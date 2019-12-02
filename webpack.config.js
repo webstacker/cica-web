@@ -2,9 +2,6 @@
 
 const path = require('path');
 
-// refer to .babelrc file:
-// https://stackoverflow.com/questions/35756479/does-jest-support-es6-import-export
-
 module.exports = {
     entry: {
         app: './src/js/scripts.js'
