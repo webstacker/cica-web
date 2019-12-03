@@ -2,7 +2,7 @@ import {createAutocomplete} from './autocomplete';
 
 describe('autoComplete', () => {
     const autoComplete = createAutocomplete();
-    describe('inputValueTemplat`e', () => {
+    describe('inputValueTemplate', () => {
         it('Should return the name given a valid result', () => {
             const result = {name: 'result-name', value: 10001};
 
