@@ -5,12 +5,15 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: path.resolve(__dirname, 'src/js/scripts.js')
+        'bundle.js': [
+            // bundles from the bottom up.
+            path.resolve(__dirname, 'components/cica/modal/modal.js'),
+            path.resolve(__dirname, 'src/js/scripts.js')
+        ]
     },
     output: {
-        path: path.resolve(__dirname, 'public/dist/js'),
-        publicPath: '/',
-        filename: 'bundle.js'
+        filename: '[name]',
+        path: path.resolve(__dirname, 'public/dist/js')
     },
     devtool: 'none',
     module: {
@@ -42,7 +45,8 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            SERVICE_URL: JSON.stringify(process.env.CW_URL)
+            SERVICE_URL: JSON.stringify(process.env.CW_URL),
+            SESSION_DURATION: process.env.CW_SESSION_DURATION
         })
     ]
 };

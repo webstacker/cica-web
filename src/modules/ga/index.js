@@ -1,8 +1,8 @@
+/* global SERVICE_URL */
 import guaTrackLinks from './vendor/gua-anchor';
 import debounce from '../../../node_modules/debounce';
 
 function createCicaGa(window) {
-    // eslint-disable-next-line no-undef
     guaTrackLinks(SERVICE_URL, window);
     // https://developers.google.com/analytics/devguides/collection/gtagjs/events
     // gtag('event', <action>, {
