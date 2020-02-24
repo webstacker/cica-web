@@ -99,17 +99,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.symbol.description */ "./node_modules/core-js/modules/es.symbol.description.js");
 /* harmony import */ var core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.for-each */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "./node_modules/core-js/modules/es.regexp.to-string.js");
-/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.concat */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.from */ "./node_modules/core-js/modules/es.array.from.js");
+/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_array_some__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.some */ "./node_modules/core-js/modules/es.array.some.js");
+/* harmony import */ var core_js_modules_es_array_some__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_some__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "./node_modules/core-js/modules/es.regexp.to-string.js");
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.string.iterator */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__);
 /* eslint-disable */
- // Workaround for missing NodeList.forEach in legacy browsers
-// https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/common.js#L6
+ // // Workaround for missing NodeList.forEach in legacy browsers
+// // https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/common.js#L6
+// function nodeListForEach(nodes, callback) {
+//     if (window.NodeList.prototype.forEach) {
+//         return nodes.forEach(callback);
+//     }
+//     for (let i = 0; i < nodes.length; i++) {
+//         callback.call(window, nodes[i], i, nodes);
+//     }
+// }
 
 
 
@@ -118,43 +136,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function nodeListForEach(nodes, callback) {
-  if (window.NodeList.prototype.forEach) {
-    return nodes.forEach(callback);
-  }
 
-  for (var i = 0; i < nodes.length; i++) {
-    callback.call(window, nodes[i], i, nodes);
-  }
-}
 
-function ModalDialogue($module) {
-  this.$module = $module;
-  this.$dialogBox = $module.querySelector('dialog');
-  this.$container = document.documentElement; // Check for browser support
 
-  this.hasNativeDialog = 'showModal' in this.$dialogBox; // Allowed focusable elements
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function Modal(module) {
+  this.module = module;
+  this.dialogBox = module.querySelector('dialog');
+  this.container = document.documentElement;
+  this.hasNativeDialog = 'showModal' in this.dialogBox; // list of elements that are allowed to be focused on.
 
   this.focusable = ['button', '[href]', 'input', 'select', 'textarea', '[tabindex]:not([tabindex="-1"])'];
-} // Initialize component
+}
 
-
-ModalDialogue.prototype.init = function (options) {
+Modal.prototype.init = function (options) {
   this.options = options || {};
   this.open = this.handleOpen.bind(this);
   this.close = this.handleClose.bind(this);
   this.focus = this.handleFocus.bind(this);
   this.boundKeyDown = this.handleKeyDown.bind(this);
-  this.content = this.handleContent.bind(this); // Elements to allow focus on
-
-  this.$focusable = this.$dialogBox.querySelectorAll(this.focusable.toString());
-  this.$focusableLast = this.$focusable[this.$focusable.length - 1];
-  this.$focusElement = this.options.focusElement || this.$dialogBox;
-  this.$dialogContent = this.options.content; // Close button
-
-  this.$buttonClose = this.$dialogBox.querySelector('.govuk-modal-dialogue__close'); // Default open state
-
-  this.isOpen = this.$dialogBox.hasAttribute('open'); // Optional trigger element
+  this.content = this.handleContent.bind(this);
+  this.focusable = this.dialogBox.querySelectorAll(this.focusable.toString());
+  this.focusableLast = this.focusable[this.focusable.length - 1];
+  this.focusElement = this.options.focusElement || this.dialogBox;
+  this.dialogContent = this.options.content;
+  this.buttonClose = this.dialogBox.querySelector('.govuk-modal__close');
+  this.isOpen = this.dialogBox.hasAttribute('open');
 
   if (this.options.triggerElement) {
     this.options.triggerElement.addEventListener('click', this.open);
@@ -162,157 +178,132 @@ ModalDialogue.prototype.init = function (options) {
 
   if (this.options.content) {
     this.content(this.options.content);
-  } // Close dialogue on close button click
+  }
 
-
-  if (this.$buttonClose) {
-    this.$buttonClose.addEventListener('click', this.close);
+  if (this.buttonClose) {
+    this.buttonClose.addEventListener('click', this.close);
   }
 
   return this;
-}; // Open modal
+};
 
-
-ModalDialogue.prototype.handleOpen = function (event) {
-  if (event) {
-    event.preventDefault();
-  } // Skip open if already open
-
+Modal.prototype.handleOpen = function (e) {
+  if (e) {
+    e.preventDefault();
+  }
 
   if (this.isOpen) {
     return;
-  } // Save last-focussed element
+  }
 
-
-  this.$lastActiveElement = document.activeElement; // Disable scrolling, show wrapper
-
-  this.$container.classList.add('govuk-!-scroll-disabled');
-  this.$module.classList.add('govuk-modal-dialogue--open'); // Show modal
-
-  this.hasNativeDialog ? this.$dialogBox.show() : this.$dialogBox.setAttribute('open', ''); // Mark open, handle focus
-
+  this.lastActiveElement = document.activeElement;
+  this.container.classList.add('govuk-!-scroll-disabled');
+  this.module.classList.add('govuk-modal--open');
+  this.hasNativeDialog ? this.dialogBox.show() : this.dialogBox.setAttribute('open', '');
   this.isOpen = true;
-  this.focus(); // Close on escape key, trap focus
-
-  document.addEventListener('keydown', this.boundKeyDown, true); // Optional 'onOpen' callback
+  this.focus();
+  document.addEventListener('keydown', this.boundKeyDown, true);
 
   if (typeof this.options.onOpen === 'function') {
     this.options.onOpen.call(this);
   }
-}; // Close modal
+};
 
-
-ModalDialogue.prototype.handleClose = function (event) {
-  if (event) {
-    event.preventDefault();
-  } // Skip close if already closed
-
+Modal.prototype.handleClose = function (e) {
+  if (e) {
+    e.preventDefault();
+  }
 
   if (!this.isOpen) {
     return;
-  } // Hide modal
+  }
 
-
-  this.hasNativeDialog ? this.$dialogBox.close() : this.$dialogBox.removeAttribute('open'); // Hide wrapper, enable scrolling
-
-  this.$module.classList.remove('govuk-modal-dialogue--open');
-  this.$container.classList.remove('govuk-!-scroll-disabled'); // Mark as closed
-
-  this.isOpen = false; // Restore focus to last active element
-
-  this.$lastActiveElement.focus(); // Optional 'onClose' callback
+  this.hasNativeDialog ? this.dialogBox.close() : this.dialogBox.removeAttribute('open');
+  this.module.classList.remove('govuk-modal--open');
+  this.container.classList.remove('govuk-!-scroll-disabled');
+  this.isOpen = false;
+  this.lastActiveElement.focus();
+  document.removeEventListener('keydown', this.boundKeyDown, true);
 
   if (typeof this.options.onClose === 'function') {
     this.options.onClose.call(this);
-  } // Remove escape key and trap focus listener
-
-
-  document.removeEventListener('keydown', this.boundKeyDown, true);
-}; // Lock scroll, focus modal
-
-
-ModalDialogue.prototype.handleFocus = function () {
-  this.$dialogBox.scrollIntoView();
-  this.$focusElement.focus({
-    preventScroll: true
-  });
-}; // Listen for key presses
-
-
-ModalDialogue.prototype.handleKeyDown = function (event) {
-  var KEY_TAB = 9; // var KEY_ESCAPE = 27;
-
-  switch (event.keyCode) {
-    case KEY_TAB:
-      var $focusElement; // Check for tabbing outside dialog
-
-      var hasFocusEscaped = document.activeElement !== this.$dialogBox; // Loop inner focusable elements
-
-      if (hasFocusEscaped) {
-        nodeListForEach(this.$focusable, function (element) {
-          // Actually, focus is on an inner focusable element
-          if (hasFocusEscaped && document.activeElement === element) {
-            hasFocusEscaped = false;
-          }
-        }); // Wrap focus back to first element
-
-        $focusElement = hasFocusEscaped ? this.$dialogBox : undefined;
-      } // Wrap focus back to first/last element
-
-
-      if (!$focusElement) {
-        if (document.activeElement === this.$focusableLast && !event.shiftKey || !this.$focusable.length) {
-          $focusElement = this.$dialogBox;
-        } else if (document.activeElement === this.$dialogBox && event.shiftKey) {
-          $focusElement = this.$focusableLast;
-        }
-      } // Wrap focus
-
-
-      if ($focusElement) {
-        event.preventDefault();
-        $focusElement.focus({
-          preventScroll: true
-        });
-      }
-
-      break;
-    // case KEY_ESCAPE:
-    //     this.close();
-    //     break;
   }
 };
 
-ModalDialogue.prototype.handleContent = function (options) {
-  var dialogTitle = this.$dialogBox.querySelector('.govuk-modal-dialogue__heading');
-  var dialogDescription = this.$dialogBox.querySelector('.govuk-modal-dialogue__description');
-  dialogTitle.innerHTML = options.heading;
-  dialogDescription.innerHTML = options.description;
+Modal.prototype.handleFocus = function () {
+  this.dialogBox.scrollIntoView();
+  this.focusElement.focus({
+    preventScroll: true
+  });
 };
 
-ModalDialogue.prototype.destroy = function (callback) {
+Modal.prototype.handleKeyDown = function (e) {
+  var keyCode = e.keyCode; // tab key.
+
+  if (keyCode === 9) {
+    var focusElement; // is the modal element (or any of the "focusable" elements) currently
+    // being focused on?
+
+    var isFocusedOnModal = [].concat(_toConsumableArray(this.focusable), [this.dialogBox]).some(function (element) {
+      return document.activeElement === element;
+    }); // if the modal is not currently focused on them force it.
+
+    if (!isFocusedOnModal) {
+      focusElement = this.dialogBox;
+    } else {
+      // if the currently focused element is the last "focusable" element
+      // in the defined `focusable` array, then wrap it to the dialog
+      // box element. or if there are no "focusable" element defined, then
+      // just force focus to the dialog box.
+      if (document.activeElement === this.focusableLast && !e.shiftKey || !this.focusable.length) {
+        focusElement = this.dialogBox; // when shift is held down...
+        // if the dialog box element is currently focused then force
+        // focus to the last element in the "focusable" array 
+      } else if (document.activeElement === this.dialogBox && e.shiftKey) {
+        focusElement = this.focusableLast;
+      }
+    } // set the focus.
+
+
+    if (focusElement) {
+      e.preventDefault();
+      focusElement.focus({
+        preventScroll: true
+      });
+    }
+  }
+};
+
+Modal.prototype.handleContent = function (options) {
+  var dialogTitle = this.dialogBox.querySelector('.govuk-modal__heading');
+  var dialogContent = this.dialogBox.querySelector('.govuk-modal__content');
+  dialogTitle.innerHTML = options.heading;
+  dialogContent.innerHTML = options.content;
+};
+
+Modal.prototype.destroy = function (callback) {
   this.open = undefined;
   this.close = undefined;
   this.focus = undefined;
   this.boundKeyDown = undefined;
   this.content = undefined;
-  this.$focusable = undefined;
-  this.$focusableLast = undefined;
-  this.$focusElement = undefined;
-  this.$dialogContent = undefined;
-  this.$buttonClose = undefined;
+  this.focusable = undefined;
+  this.focusableLast = undefined;
+  this.focusElement = undefined;
+  this.dialogContent = undefined;
+  this.buttonClose = undefined;
   this.isOpen = undefined;
   this.options = undefined;
-  this.$lastActiveElement = undefined;
-  this.$container = undefined;
-  this.$module = undefined;
+  this.lastActiveElement = undefined;
+  this.container = undefined;
+  this.module = undefined;
   this.hasNativeDialog = undefined;
-  this.$dialogBox = undefined;
-  this.$focusElement = undefined;
+  this.dialogBox = undefined;
+  this.focusElement = undefined;
   callback && callback();
 };
 
-window.GOVUKFrontend.ModalDialogue = ModalDialogue;
+window.GOVUKFrontend.Modal = Modal;
 
 /***/ }),
 
@@ -4173,6 +4164,34 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.array.some.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.some.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $some = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").some;
+var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
+var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
+
+var STRICT_METHOD = arrayMethodIsStrict('some');
+var USES_TO_LENGTH = arrayMethodUsesToLength('some');
+
+// `Array.prototype.some` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.some
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
+  some: function some(callbackfn /* , thisArg */) {
+    return $some(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.array.splice.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.splice.js ***!
@@ -5799,20 +5818,24 @@ __webpack_require__.r(__webpack_exports__);
   var pathName = window.location.pathname;
 
   if (pathName.startsWith('/apply')) {
-    var sessionTimeoutModalElement = window.document.querySelector('#govuk-modal-dialogue-session-timeout');
+    var sessionTimeoutModalElement = window.document.querySelector('#govuk-modal-session-timeout');
     sessionTimeoutModalElement.addEventListener('TIMED_OUT', function () {
       var timeoutEndedModal = Object(_modules_modal_timeout__WEBPACK_IMPORTED_MODULE_3__["default"])(window);
       timeoutEndedModal.init({
-        element: '#govuk-modal-dialogue-session-ended',
-        resumeElement: '.govuk-modal-dialogue__continue',
+        element: '#govuk-modal-session-ended',
+        resumeElement: '.govuk-modal__continue',
         showIn: [0]
       });
     });
     var timeoutModal = Object(_modules_modal_timeout__WEBPACK_IMPORTED_MODULE_3__["default"])(window);
     timeoutModal.init({
-      element: '#govuk-modal-dialogue-session-timeout',
-      resumeElement: '.govuk-modal-dialogue__continue',
-      showIn: [15000 - 5 * 1000, 15000 - 1 * 1000]
+      element: '#govuk-modal-session-timeout',
+      resumeElement: '.govuk-modal__continue',
+      showIn: [// show a modal at two-thirds, and fourteen-fifteenths of the session
+      // length (rounded down to the nearest 1000).
+      // e.g. a session length of 15 minutes results in a modal being
+      // shown at 10 minutes, and 14 minutes.
+      Math.floor((15000 - 15000 / 3) / 1000) * 1000, Math.floor((15000 - 15000 / 15) / 1000) * 1000]
     });
   }
 })();
@@ -6425,7 +6448,23 @@ function createTimeoutModal(window) {
     var durationInSeconds = Math.floor(duration / 1000);
     var minutes = Number.parseInt(durationInSeconds / 60, 10);
     var seconds = durationInSeconds % 60;
-    return "".concat(minutes, ":").concat(seconds < 10 ? '0' : '').concat(seconds);
+    var minutesText = '';
+    var secondsText = '';
+    var conjunctionText = '';
+
+    if (minutes) {
+      minutesText = minutes === 1 ? "".concat(minutes, " minute") : "".concat(minutes, " minutes");
+    }
+
+    if (seconds) {
+      secondsText = seconds === 1 ? "".concat(seconds, " second") : "".concat(seconds, " seconds");
+    }
+
+    if (minutes && seconds) {
+      conjunctionText = ' and ';
+    }
+
+    return "".concat(minutesText).concat(conjunctionText).concat(secondsText);
   }
 
   function updateTimeRemainingText(el, timeRemaining, interval, dialogBox) {
@@ -6463,7 +6502,7 @@ function createTimeoutModal(window) {
   }
 
   function setUpModal(settings) {
-    modal = new window.GOVUKFrontend.ModalDialogue(settings.dialogBox).init(settings.modalOptions);
+    modal = new window.GOVUKFrontend.Modal(settings.dialogBox).init(settings.modalOptions);
     settings.dialogBox.addEventListener('TIMED_OUT', function () {
       modal.close();
     });
