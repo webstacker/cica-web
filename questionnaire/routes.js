@@ -65,6 +65,7 @@ router
     })
     .post(async (req, res, next) => {
         try {
+            console.log(JSON.stringify(req.body, null, 4));
             const sectionId = formHelper.addPrefix(req.params.section);
             const body = formHelper.processRequest(req.body, req.params.section);
             // delete the token from the body to allow AJV to validate the request.

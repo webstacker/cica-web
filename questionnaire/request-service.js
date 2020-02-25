@@ -2,6 +2,7 @@
 
 const got = require('got');
 const merge = require('lodash.merge');
+const {PassThrough} = require('stream');
 
 function requestService() {
     function post(options) {
@@ -33,9 +34,19 @@ function requestService() {
         return got(opts.url, opts);
     }
 
+    function postFile(options) {
+        let opts = {
+            method: 'POST',
+            redirect: 'follow'
+        };
+        opts = merge(opts, options);
+        return got(opts.url, opts);
+    }
+
     return Object.freeze({
         post,
-        get
+        get,
+        postFile
     });
 }
 

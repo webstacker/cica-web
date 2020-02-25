@@ -9,8 +9,10 @@ const nunjucks = require('nunjucks');
 const clientSessions = require('client-sessions');
 const csrf = require('csurf');
 const nanoid = require('nanoid');
+const busboyConnect = require('connect-busboy');
 const formHelper = require('./questionnaire/form-helper');
 const qService = require('./questionnaire/questionnaire-service')();
+const upload = require('./questionnaire/upload-helper')();
 const indexRouter = require('./index/routes');
 const applicationRouter = require('./questionnaire/routes');
 
@@ -59,7 +61,7 @@ app.use(
         }
     })
 );
-
+app.use(busboyConnect());
 app.use(logger('dev'));
 // https://expressjs.com/en/api.html#express.json
 app.use(express.json());
@@ -85,6 +87,46 @@ app.use(
         }
     })
 );
+
+// const body = {};
+app.use(async (req, res, next) => {
+    try {
+        if (req.busboy) {
+            await new Promise((resolve, reject) => {
+                req.pipe(req.busboy);
+
+                req.busboy.on('error', err => {
+                    reject(err);
+                });
+
+                req.busboy.on('field', (fieldname, val) => {
+                    req.body[fieldname] = val;
+                    console.log(`${fieldname}: ${val}`);
+                });
+
+                req.busboy.on('file', (fieldname, file, filename) => {
+                    console.log(`filename: ${filename}`);
+                    resolve(
+                        upload.postFile(
+                            req.cicaSession.questionnaireId,
+                            filename,
+                            file,
+                            req.headers
+                        )
+                    );
+                });
+                /*                req.busboy.on('finish', () => {
+                    console.log('Done parsing form!');
+                    resolve();
+                }); */
+            });
+        }
+        next();
+    } catch (err) {
+        console.log(err.toString());
+        throw err;
+    }
+});
 
 app.use(
     csrf({
