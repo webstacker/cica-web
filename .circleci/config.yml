@@ -5,12 +5,8 @@ jobs:
       - image: circleci/node:10.13.0
     steps:
       - checkout
-      - run:
-          name: install-npm-wee
-          command: npm install
-      - run:
-          name: test
-          command: npm test
+      - run: npm install
+      - run: npm test
 workflows:
   build-and-test:
     jobs:
