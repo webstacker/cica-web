@@ -12,7 +12,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-      - run: npm run lint
+      - run: npx --no-install eslint . --cache
       - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
 workflows:
   build-and-test:
