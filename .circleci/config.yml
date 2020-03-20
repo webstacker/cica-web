@@ -13,12 +13,12 @@ jobs:
           paths:
             - ./node_modules
       - restore_cache:
-          key: v1-lint-cache-{{ checksum ".eslintrc.js" }}
-      - run: npx --no-install eslint . --cache
+          key: v2-lint-cache-{{ checksum ".eslintrc.js" }}
+      - run: npx --no-install eslint . --cache --cache-location .eslintcache2
       - save_cache:
-          key: v1-lint-cache-{{ checksum ".eslintrc.js" }}
+          key: v2-lint-cache-{{ checksum ".eslintrc.js" }}
           paths:
-            - .eslintcache
+            - ./.eslintcache2
       - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
 workflows:
   build-and-test:
