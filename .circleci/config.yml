@@ -13,9 +13,8 @@ jobs:
           paths:
             - ./node_modules
       - run: npm run lint
-      - run: npx --no-install jest --projects jest.config.js jest.config.jsdom.js --coverage
+      - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
 workflows:
   build-and-test:
     jobs:
       - build-and-test
-##
