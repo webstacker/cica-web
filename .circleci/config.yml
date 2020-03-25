@@ -1,6 +1,27 @@
+# version: 2.1
+# jobs:
+#   build-and-test:
+#     docker:
+#       - image: circleci/node:10.13.0
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "package-lock.json" }}
+#       - run: npm ci
+#       - save_cache:
+#           key: dependency-cache-{{ checksum "package-lock.json" }}
+#           paths:
+#             - ./node_modules
+#       - run: npx --no-install eslint .
+#       - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - build-and-test
+
 version: 2.1
 jobs:
-  build-and-test:
+  build:
     docker:
       - image: circleci/node:10.13.0
     steps:
@@ -12,10 +33,34 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-      - run: npx --no-install eslint .
-      - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
-workflows:
-  build-and-test:
-    jobs:
-      - build-and-test
-#####
+      - persist_to_workspace:
+          root: /
+          paths:
+            - '*'
+  test:
+    docker:
+      - image: circleci/node:10:13:0
+    steps:
+      - run: echo test steps
+      - attach_workspace:
+          at: /workspace
+      - run: ls /workspace
+#   build-and-test:
+#     docker:
+#       - image: circleci/node:10.13.0
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "package-lock.json" }}
+#       - run: npm ci
+#       - save_cache:
+#           key: dependency-cache-{{ checksum "package-lock.json" }}
+#           paths:
+#             - ./node_modules
+#       - run: npx --no-install eslint .
+#       - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - build-and-test
+
