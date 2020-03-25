@@ -47,13 +47,28 @@ jobs:
           at: ./
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
       - run: ls ./
       - run: echo testzzzzzz
+  lint:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - attach_workspace:
+          at: ./
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npx --no-install eslint .
+      - run: ls ./
+      - run: echo lintzzzz
 workflows:
   build-and-test:
     jobs:
       - build
       - test:
+          requires:
+            - build
+      - lint:
           requires:
             - build
 #   build:
