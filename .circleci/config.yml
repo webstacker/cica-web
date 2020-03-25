@@ -12,13 +12,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-      - restore_cache:
-          key: v3-lint-cache-{{ checksum ".eslintrc.js" }}
-      - run: npx --no-install eslint . --cache --cache-location "my-lint-cache"
-      - save_cache:
-          key: v3-lint-cache-{{ checksum ".eslintrc.js" }}
-          paths:
-            - ./my-lint-cache
+      - run: npx --no-install eslint .
       - run: npx --no-install jest --ci --runInBand --bail --silent --coverage --projects jest.config.js jest.config.jsdom.js
 workflows:
   build-and-test:
