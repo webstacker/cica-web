@@ -38,6 +38,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ./
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: ls ./
       - run: echo testzzzzzz
 workflows:
