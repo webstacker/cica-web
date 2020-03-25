@@ -27,6 +27,17 @@ jobs:
     steps:
       - checkout
       - run: ls .
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - '*'
+  test:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - attach_workspace:
+          at: ./workspace
+      - run: ls ./workspace
 #   build:
 #     docker:
 #       - image: circleci/node:10.13.0
