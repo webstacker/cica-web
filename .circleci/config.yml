@@ -31,13 +31,15 @@ jobs:
           root: ./
           paths:
             - '*'
+      - run: echo buildzzzzzz
   test:
     docker:
       - image: circleci/node:10.13.0
     steps:
       - attach_workspace:
-          at: ./workspace
-      - run: ls ./workspace
+          at: ./
+      - run: ls ./
+      - run: echo testzzzzzz
 workflows:
   build-and-test:
     jobs:
