@@ -75,6 +75,7 @@ workflows:
       - lint:
           requires:
             - build
+            #
 #   build:
 #     docker:
 #       - image: circleci/node:10.13.0
