@@ -76,7 +76,7 @@ workflows:
             - build
       - lint:
           requires:
-            - test
+            - build
             #
 #   build:
 #     docker:
